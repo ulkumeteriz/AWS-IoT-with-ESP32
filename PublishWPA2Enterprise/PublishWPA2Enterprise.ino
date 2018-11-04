@@ -118,8 +118,14 @@ void loop() {
       Serial.print("Read DHT11 failed, err="); Serial.println(err);delay(2000);
       return;
     }
-    tick=0;
-    sprintf(payload,"{\"temperature\": \"%d\"}",(int)temperature);
+    
+    tick = 0;
+    
+    if(IS_SHADOW_UPDATE)
+      sprintf(payload,"{\"state\": {\"reported\" : {\"temperature\" : \"%d\"}}}",(int)temperature);
+    else
+      sprintf(payload,"{\"temperature\": \"%d\"}",(int)temperature);
+    
     if(esp32.publish(TOPIC_NAME,payload) == 0)
     {        
       Serial.print("Publish Message:");
@@ -129,7 +135,9 @@ void loop() {
     {
       Serial.println("Publish failed");
     }
+  
   }  
+  
   vTaskDelay(1000 / portTICK_RATE_MS); 
   tick++;
 }

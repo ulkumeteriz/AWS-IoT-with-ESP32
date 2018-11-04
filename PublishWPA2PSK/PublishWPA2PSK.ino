@@ -84,7 +84,10 @@ void loop() {
       return;
     }
     tick=0;
-    sprintf(payload,"{\"temperature\": \"%d\"}",(int)temperature);
+    if(IS_SHADOW_UPDATE)
+      sprintf(payload,"{\"state\": {\"reported\" : {\"temperature\" : \"%d\"}}}",(int)temperature);
+    else
+      sprintf(payload,"{\"temperature\": \"%d\"}",(int)temperature);
     if(esp32.publish(TOPIC_NAME,payload) == 0)
     {        
       Serial.print("Publish Message:");
