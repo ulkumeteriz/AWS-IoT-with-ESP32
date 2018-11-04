@@ -1,19 +1,19 @@
 #include <AWS_IOT.h>
 #include <SimpleDHT.h>
 #include <WiFi.h>
+#include "credentials.h"
 
 AWS_IOT esp32;
 
 int pinDHT11 = 2;
 SimpleDHT11 dht11(pinDHT11);
 
-char WIFI_SSID[]="***";
-char WIFI_PASSWORD[]="***";
+extern char WIFI_SSID[];
+extern char WIFI_PASSWORD[];
 
-char HOST_ADDRESS[]="***.iot.us-east-2.amazonaws.com";
-char CLIENT_ID[]= "ESP32_Home";
-char TOPIC_NAME[]= "home/room1/temperature";
-
+extern char HOST_ADDRESS[];
+extern char CLIENT_ID[];
+extern char TOPIC_NAME[];
 
 int status = WL_IDLE_STATUS;
 int tick=0,msgCount=0,msgReceived = 0;
