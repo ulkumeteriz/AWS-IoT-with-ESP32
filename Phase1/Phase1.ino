@@ -226,7 +226,8 @@ void loop() {
               month, day, year, hour, minute, second, lat, lng, temperature, humidity,pms.pm[1]);
     
     if(esp32.publish(TOPIC_NAME,payload) == 0)
-    {        
+    { 
+      Serial.println("");
       Serial.print("Publish Message:");
       Serial.println(payload);
     }
