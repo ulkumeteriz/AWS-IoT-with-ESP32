@@ -168,14 +168,15 @@ void loop() {
     while (ss.available() > 0) {
       
       gps.encode(ss.read());
-      //Serial.print("im in here");
+      
       if (gps.location.isUpdated()) {
         lat = gps.location.lat();
         lng = gps.location.lng();
-        Serial.print("Latitude= "); Serial.print(lat , 6);
-        Serial.print(" Longitude= "); Serial.println(lng, 6);
+        Serial.print("Latitude : "); Serial.print(lat , 6);
+        Serial.print("Longitude : "); Serial.println(lng, 6);
         
-        Serial.print(F("  Date/Time: "));
+        Serial.print(F("Date/Time: "));
+        
         if (gps.date.isValid())  {
           day = gps.date.day();
           month = gps.date.month();
@@ -186,19 +187,26 @@ void loop() {
         else {
           Serial.print(F("INVALID"));
         }
-        Serial.print(F(" "));
-        if (gps.time.isValid()) {
-          if (gps.time.hour() < 10) Serial.print(F("0"));
-          Serial.print(gps.time.hour()); Serial.print(F(":"));
-          if (gps.time.minute() < 10) Serial.print(F("0"));
-          Serial.print(gps.time.minute());
-          Serial.print(F(":"));
-          if (gps.time.second() < 10) Serial.print(F("0"));
-          Serial.print(gps.time.second());
-          Serial.print(F("."));
-          if (gps.time.centisecond() < 10) Serial.print(F("0"));
-          Serial.print(gps.time.centisecond());
         
+        Serial.print(F(" "));
+        
+        if (gps.time.isValid()) {
+          hour = gps.time.hour();
+          if (hour < 10) 
+              Serial.print(F("0"));
+          Serial.print(hour); 
+          Serial.print(F(":"));
+          
+          minute = gps.time.minute();
+          if (minute < 10) 
+              Serial.print(F("0"));
+          Serial.print(minute);
+          Serial.print(F(":"));
+          
+          second = gps.time.second();
+          if (second < 10) 
+              Serial.print(F("0"));
+          Serial.print(second);
           break;
         }
         else {
